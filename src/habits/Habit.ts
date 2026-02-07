@@ -17,6 +17,24 @@ export class Habit {
         this._streakCount = 0;
     }
 
+    // Setters for reading from the JSON file in FileStorage.ts
+    public setDate(date: Date) {
+        this._date = date;
+    }
+
+    public setComplete(complete: boolean) {
+        this._complete = complete;
+    }
+
+    public setStreakCount(streakCount: number) {
+        this._streakCount = streakCount;
+    }
+
+     // Method to set the name of a habit,
+    public setName(name: string){
+        this._name = name;       
+    }
+
     // Methods - Only for single class, group tasks is handled by the manager
 
     // Method to Mark a task complete, changes the bolean value
@@ -29,11 +47,6 @@ export class Habit {
     public resetComplete() {
         this._complete = false;
         return this._complete;
-    }
-
-    // Method to update the name of a habit,
-    public updateName(name: string){
-        this._name = name;       
     }
 
     // Method to increment the streak count. The user won't ever actually use this,
