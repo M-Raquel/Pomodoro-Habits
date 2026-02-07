@@ -2,17 +2,19 @@
 export class Pomodoro {
     // Field - duration is the amount set by the user. IntervalId is used to decrease the counter 
     // every second until it reaches 0. It is currently undefined until startTimer() method.
-    // state defines whether or not the time is complete
+    // small function that checks if it is complete, and that states it is so.
     private _duration: number;
     private _counter: number;
-    private _intervalId: number | undefined;
+    private _intervalId: NodeJS.Timeout | undefined;
     private _complete: boolean;
+    private _onComplete: (() => void) | null;
 
     // Input from the user will determine the duration.
-    constructor(duration: number){
+    constructor(duration: number, onComplete?: () => void){
         this._counter = duration;
         this._duration = duration;
         this._complete = false;
+        this._onComplete = onComplete ?? null;
     }
 
     //Method to start. Void, because it doesn't return anything. Contains an arrow function that decreases the timer once it starts.
@@ -28,8 +30,13 @@ export class Pomodoro {
                     //If the timer reaches zero before another timer method is called, stop and reset 
                     if (this._counter <= 0 && this._intervalId) {
                         clearInterval(this._intervalId);
+                        this._intervalId = undefined;
                         this._counter = this._duration;
                         this._complete = true;
+
+                        if (this._onComplete){
+                            this._onComplete();
+                        }
                     }
                 }, 1000); // Rate of the countdown in miliseconds
             }
