@@ -14,11 +14,22 @@ export class HabitManager{
         this._storage = storage;
         this._habits = this._storage.loadHabits();
     }
+
     //Methods
     
-    //Critical method. I decided to automatically save everytime a new habit was created or removed. Only used by this class
+    //Critical methods. I decided to automatically save everytime a new habit was created or removed. Only used by this class
     private save(): void {
         this._storage.saveHabits(this._habits);
+    }
+
+    // Methods to use later down in the markHabitComplete, 1st compares both dates and says yes or no. Second gets the date difference
+    private isSameDay(a: Date, b: Date): boolean {
+        return a.toDateString() === b.toDateString();
+    }
+
+    private isYesterday(today: Date, last: Date): boolean {
+        const diff = today.getTime() - last.getTime();
+        return diff > 0 && diff <= 24 * 60 * 60 * 1000;
     }
 
     //Add a new Habit; Creates Habit object, pushes it into the list
@@ -45,21 +56,49 @@ export class HabitManager{
         return this._habits.find(h => h.getName() == name);
     }
     
-    // Mark a habit complete. Finds habit, calls updateComplete, updateDate, incStreakCount
+    // Mark a habit complete. Finds habit using method above, calls updateComplete, updateDate, incStreakCount in Habit class
     // Basically handles streak logic
     public markHabitComplete(name: string): void{
-        
+        const habit = this.findHabit(name);
+        if (!habit) return;
+
+        // Need to compare today's date vs the habit's last completed date, so grab both and save into variables
+        const today = new Date();
+        const lastDate = habit.getDate();
+        // Then apply rules; 
+
+        // A - if habit was completed today, don't increment streak, just mark complete again
+        if (lastDate && this.isSameDay(today, lastDate)) {
+            habit.setComplete(true);
+            this.save();
+            return;
+        }
+
+        // B - If completed yesterday, a valid streak continuation, increment streak count, update the date to today
+        if (lastDate && this.isYesterday(today, lastDate)){
+            habit.incStreakCount();
+        }
+
+        // C - if the habit was completed more than 1 day ago, Streak is broken, reset it, set o 1, update the date
+        else if (lastDate){
+            habit.resetStreakCount();
+        }
+        // D - If habit was never completed, streak starts at 1, update the date
+        else {
+            habit.setStreakCount(1);
+        }
+
+        habit.setDate(today);
+        habit.setComplete(true);
+        this.save();
     }
-    // Need to compare today's date vs the habit's last completed date
-    // Then apply rules; 
-    // A - if habit was completed today, don't increment streak, just mark complete again
-    // B - If completed yesterday, a valid streak continuation, increment streak count, update the date to today
-    // C - if the habit was completed more than 1 day ago, Streak is broken, reset it, set o 1, update the date
-    // D - If habit was never completed, streak starts at 1, update the date
     
-    //Reset a habit; calls resetComplete(), resetStreakCount(), resets the date
-    
-    //Save Habits; calls Storage class, Serializes the list. Keep storage logic outside of habit itself
-    
-    //Load Habits; Reads from storage, reconstructs Habit objects
+    //Reset a habit manually; calls resetComplete(), resetStreakCount(), doesn't reset the date, because that only happens on completion
+    public resetHabit(name: string): void{
+        const habit = this.findHabit(name);
+        if (!habit) return;
+
+        habit.resetComplete;
+        habit.resetStreakCount;
+    }
 }
