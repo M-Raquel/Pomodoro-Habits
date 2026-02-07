@@ -37,6 +37,11 @@ export class Habit {
 
     // Methods - Only for single class, group tasks is handled by the manager
 
+    //Get the name of the Habit, used in HabitManager for filter methods
+    public getName(){
+        return this._name;
+    }
+
     // Method to Mark a task complete, changes the bolean value
     public updateComplete() {
         this._complete = true;
