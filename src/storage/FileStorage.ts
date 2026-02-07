@@ -2,7 +2,7 @@ import { Habit} from "../habits/Habit.js";
 import * as fs from "fs";
 // Class that Reads/Writes to JSON files.
 
-class FileStorage{
+export class FileStorage{
     //Only needs 1 field, a file path
     private _filepath: string;
 
@@ -30,7 +30,7 @@ class FileStorage{
         if (!fs.existsSync(this._filepath)){
             return [];
         }
-        
+
         try{
             // Read from the file and put the raw data into a list to construct into Habit objects later
             const data = fs.readFileSync(this._filepath, 'utf-8');
