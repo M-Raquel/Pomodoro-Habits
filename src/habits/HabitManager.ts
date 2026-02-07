@@ -93,6 +93,35 @@ export class HabitManager{
         this.save();
     }
     
+    // Get a weekly summary that records the amount of habits completed and streaks maintained. Also starts the week on Sunday
+    public getWeeklySummary() {
+        const now = new Date();
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDate());
+
+        let completeThisWeek = 0;
+        let streaksMaintained = 0;
+
+        for (const habit of this._habits){
+            if (!habit.getDate()) continue;
+
+            const date = new Date(habit.getDate());
+
+            if (date >= startOfWeek && date <= now){
+                completeThisWeek++;
+            }
+
+            if (habit.getStreakCount() > 1){
+                streaksMaintained++;
+            }
+        }
+        return {
+            completeThisWeek,
+            streaksMaintained,
+            totalHabits: this._habits.length
+        };
+    }
+
     //Reset a habit manually; calls resetComplete(), resetStreakCount(), doesn't reset the date, because that only happens on completion
     public resetHabit(name: string): void{
         const habit = this.findHabit(name);
