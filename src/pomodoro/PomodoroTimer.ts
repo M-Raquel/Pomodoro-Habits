@@ -2,14 +2,17 @@
 class Pomodoro {
     // Field - duration is the amount set by the user. IntervalId is used to decrease the counter 
     // every second until it reaches 0. It is currently undefined until startTimer() method.
+    // state defines whether or not the time is complete
     private _duration: number;
     private _counter: number;
     private _intervalId: number | undefined;
+    private _complete: boolean;
 
     // Input from the user will determine the duration.
     constructor(duration: number){
         this._counter = duration;
         this._duration = duration;
+        this._complete = false;
     }
 
     //Method to start. Void, because it doesn't return anything. Contains an arrow function that decreases the timer once it starts.
@@ -21,10 +24,12 @@ class Pomodoro {
             {
                 this._intervalId = setInterval(() => {
                     this._counter--;
-        
-                    //If the timer reaches zero before another timer method is called, stop
+    
+                    //If the timer reaches zero before another timer method is called, stop and reset 
                     if (this._counter <= 0 && this._intervalId) {
                         clearInterval(this._intervalId);
+                        this._counter = this._duration;
+                        this._complete = true;
                     }
                 }, 1000); // Rate of the countdown in miliseconds
             }
@@ -34,6 +39,7 @@ class Pomodoro {
     }
 
     //Method to stop. Clear the interval so it stops decreasing and set back to undefined.
+    // Don't need to change the _complete.
     public stopTimer(): void {
         if (this._intervalId) {
             clearInterval(this._intervalId);
@@ -46,16 +52,24 @@ class Pomodoro {
         this._counter = this._duration;
         clearInterval(this._intervalId);
         this._intervalId = undefined;
+        this._complete = false;
     }
 
-    //Method to display the current time counting down. 
-    public get currentCount() {
+    //Method to check state of the timer, Is it complete yet?
+    public getCurrentCount() {
         return this._counter;
     }
 
-    //Method to change the duration of the pomodoro. Also resets the counter, but doesn't stop the countdown
+    public getStatus(){
+        return this._complete;
+    }
+
+    //Method to change the duration of the pomodoro. Also resets the counter and stops timer
     public changeDuration(duration: number){
+        clearInterval(this._intervalId);
+        this._intervalId = undefined;
         this._duration = duration;
         this._counter = duration;
+        this._complete = false;
     }
 }
