@@ -37,12 +37,15 @@ export class Habit {
 
     // Methods - Only for single class, group tasks is handled by the manager
 
-    //Get the name of the Habit and later on the date, used in HabitManager for filter methods
+    //Get the name of the Habit, date, and streak count. Used in HabitManager for filter methods
     public getName(){
         return this._name;
     }
     public getDate(){
         return this._date;
+    }
+    public getStreakCount() {
+        return this._streakCount;
     }
 
     // Method to reset the complete status, set back to false
