@@ -1,10 +1,17 @@
+import { Habit } from "./Habit.js";
+
 //Habit Manager Class - It's responsible for calling Habit methods, Mantaining the list, and enforcing rules
 // Does not Print/log anything, format output, handle user input, manage timers, or store UI-related data
 
-// Add a reference to storage class, if you want to handle saving/loading
-// Keeps storage logic out of the Habit itself
+class HabitManager{
+    // Only field is an array of habit objects, that contain all the information
+    private _habits: Habit[];
 
-//List/Array of Habit Objects 
+    //Fix this later
+    constructor(habit: Habit[]){
+        this._habits = habit;
+    }
+}
 
 //Methods
 
@@ -30,6 +37,6 @@
 
 //Reset a habit; calls resetComplete(), resetStreakCount(), resets the date
 
-//Save Habits; calls Storage class, Serializes the list
+//Save Habits; calls Storage class, Serializes the list. Keep storage logic outside of habit itself
 
 //Load Habits; Reads from storage, reconstructs Habit objects

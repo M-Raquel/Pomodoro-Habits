@@ -1,5 +1,5 @@
 //Habit class - contains the attributes of an individual habit
-class Habit{
+export class Habit {
     //Field - a name, a date/timestamp it was last completed, completion status, and streak count
     private _name: string;
     private _date: Date;
@@ -53,3 +53,4 @@ class Habit{
         this._date = newDate;
     }
 }
+//Need to declare export so this module can be imported into other modules such as HabitManager

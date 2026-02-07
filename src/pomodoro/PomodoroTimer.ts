@@ -1,5 +1,5 @@
 // Timer class - contains attributes and methods for the pomodoro timer
-class Pomodoro {
+export class Pomodoro {
     // Field - duration is the amount set by the user. IntervalId is used to decrease the counter 
     // every second until it reaches 0. It is currently undefined until startTimer() method.
     // state defines whether or not the time is complete
