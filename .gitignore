@@ -1,0 +1,19 @@
+# Node Modules
+node_modules/
+
+#Future build output
+#dist/
+
+# Typescript cache
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Enviroment variables (if I add them)
+.env
+
+
