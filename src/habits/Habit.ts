@@ -37,15 +37,12 @@ export class Habit {
 
     // Methods - Only for single class, group tasks is handled by the manager
 
-    //Get the name of the Habit, used in HabitManager for filter methods
+    //Get the name of the Habit and later on the date, used in HabitManager for filter methods
     public getName(){
         return this._name;
     }
-
-    // Method to Mark a task complete, changes the bolean value
-    public updateComplete() {
-        this._complete = true;
-        return this._complete;
+    public getDate(){
+        return this._date;
     }
 
     // Method to reset the complete status, set back to false
@@ -63,12 +60,6 @@ export class Habit {
     //Method to reset the streak count
     public resetStreakCount(){
         this._streakCount = 0;
-    }
-
-    //Method to update the date, used by manager with the streaks
-    public updateDate(){
-        let newDate = new Date();
-        this._date = newDate;
     }
 }
 //Need to declare export so this module can be imported into other modules such as HabitManager
