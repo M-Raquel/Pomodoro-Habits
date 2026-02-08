@@ -18,6 +18,26 @@ Tools and Libraries:
 - readline module for CLI interaction
 - No external frameworks
 
+# How to Run
+1. Clone the Repository
+git clone <your-repo-url>
+cd Pomodoro-Habits
+
+2. Install independencies
+npm install
+
+# Option 1 - Run Directly with ts-node
+Runs the TypeScript source without compiling
+* make sure to enable allowImportingTsExtensions in tsconfig.json
+npx ts-node src/index.ts
+
+# Option 2 - Compile TypeScript and Run the Output
+- Compile: 
+npm run build
+
+- Run Compiled app
+node dist/index.js
+
 # Useful Websites and Videos
 
 - [Digital Ocean New Typescript Project](https://www.digitalocean.com/community/tutorials/typescript-new-project)
@@ -36,8 +56,7 @@ Tools and Libraries:
 - [How to use Async/Await with a Promise in TypeScript – GeeksforGeeks](https://www.geeksforgeeks.org/how-to-use-async-await-with-a-promise-in-typescript/)
 
 # AI Disclosure
-This project was developed by me, and all architectural decisions, class design, debugging, and final implementation were written and reasoned through by hand. I used AI tools as a supplemental resource during development — primarily to clarify TypeScript behaviors, explore alternative design patterns, and troubleshoot issues related to module resolution, date handling, and CLI flow.
-AI assistance was also used to help refine documentation and improve the clarity of explanations in this README. All final code, logic, and structural decisions were reviewed, tested, and implemented manually to ensure I fully understood the concepts and could apply them independently.
+This project was developed by me, and all decisions, class design, debugging, and final implementation were written and reasoned through by hand. I used AI tools as a supplemental resource during development. It was primarily used to clarify TypeScript behaviors/concepts, suggest clearer logical structure without giving code, and troubleshoot issues related to installation, module resolution, and date handling. All final code, logic, and structural decisions were reviewed, tested, and implemented manually to ensure I fully understood the concepts and could apply them independently.
 
 # Future Work
 
