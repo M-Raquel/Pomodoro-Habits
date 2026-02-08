@@ -56,27 +56,28 @@ export class Pomodoro {
 
     //Method to reset the timer. Sets Counter back to the original duration
     public resetTimer() {
-        this._counter = this._duration;
+        this._counter = 0;
         clearInterval(this._intervalId);
         this._intervalId = undefined;
         this._complete = false;
     }
 
     //Method to check state of the timer, Is it complete yet?
-    public getCurrentCount() {
+    get currentCount() {
         return this._counter;
     }
 
-    public getStatus(){
+    get status(){
         return this._complete;
     }
 
+    // Add this in a future update. 
     //Method to change the duration of the pomodoro. Also resets the counter and stops timer
-    public changeDuration(duration: number){
-        clearInterval(this._intervalId);
-        this._intervalId = undefined;
-        this._duration = duration;
-        this._counter = duration;
-        this._complete = false;
-    }
+    // public changeDuration(duration: number){
+    //     clearInterval(this._intervalId);
+    //     this._intervalId = undefined;
+    //     this._duration = duration;
+    //     this._counter = duration;
+    //     this._complete = false;
+    // }
 }
