@@ -17,6 +17,19 @@ export class Habit {
         this._streakCount = 0;
     }
 
+    //Get the name of the Habit, date, and streak count. Used in HabitManager for filter methods
+    get name(){
+        return this._name;
+    }
+    get date(){
+        return this._date;
+    }
+    get streakCount() {
+        return this._streakCount;
+    }
+    get complete(){
+        return this._complete;
+    }
     // Setters for reading from the JSON file in FileStorage.ts
     public setDate(date: Date) {
         this._date = date;
@@ -37,16 +50,6 @@ export class Habit {
 
     // Methods - Only for single class, group tasks is handled by the manager
 
-    //Get the name of the Habit, date, and streak count. Used in HabitManager for filter methods
-    public getName(){
-        return this._name;
-    }
-    public getDate(){
-        return this._date;
-    }
-    public getStreakCount() {
-        return this._streakCount;
-    }
 
     // Method to reset the complete status, set back to false
     public resetComplete() {
