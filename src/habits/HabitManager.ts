@@ -1,5 +1,5 @@
-import { FileStorage } from "../storage/FileStorage.js";
-import { Habit } from "./Habit.js";
+import { FileStorage } from "../storage/FileStorage.ts";
+import { Habit } from "./Habit.ts";
 
 //Habit Manager Class - It's responsible for calling Habit methods, Mantaining the list, and enforcing rules
 // Does not Print/log anything, format output, handle user input, manage timers, or store UI-related data
@@ -28,8 +28,9 @@ export class HabitManager{
     }
 
     private isYesterday(today: Date, last: Date): boolean {
-        const diff = today.getTime() - last.getTime();
-        return diff > 0 && diff <= 24 * 60 * 60 * 1000;
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        return this.isSameDay(yesterday, last);
     }
 
     //Add a new Habit; Creates Habit object, pushes it into the list
@@ -41,7 +42,7 @@ export class HabitManager{
 
     //Removes a habit by name; ensures the list stays consistent by saving again.
     public removeHabit(name: string): void{
-        this._habits = this._habits.filter(h => h.getName() !== name);
+        this._habits = this._habits.filter(h => h.name !== name);
         this.save();
     }
 
@@ -53,7 +54,7 @@ export class HabitManager{
     //Find a habit; returns a habit object by name or ID. Used internally by other methods
     //If it doesn't exist, return
     private findHabit(name: string): Habit | undefined {
-        return this._habits.find(h => h.getName() == name);
+        return this._habits.find(h => h.name == name);
     }
     
     // Mark a habit complete. Finds habit using method above, calls updateComplete, updateDate, incStreakCount in Habit class
@@ -64,7 +65,7 @@ export class HabitManager{
 
         // Need to compare today's date vs the habit's last completed date, so grab both and save into variables
         const today = new Date();
-        const lastDate = habit.getDate();
+        const lastDate = habit.date;
         // Then apply rules; 
 
         // A - if habit was completed today, don't increment streak, just mark complete again
@@ -97,21 +98,21 @@ export class HabitManager{
     public getWeeklySummary() {
         const now = new Date();
         const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - now.getDate());
+        startOfWeek.setDate(now.getDate() - now.getDay());
 
         let completeThisWeek = 0;
         let streaksMaintained = 0;
 
         for (const habit of this._habits){
-            if (!habit.getDate()) continue;
+            if (!habit.date) continue;
 
-            const date = new Date(habit.getDate());
+            const date = new Date(habit.date);
 
             if (date >= startOfWeek && date <= now){
                 completeThisWeek++;
             }
 
-            if (habit.getStreakCount() > 1){
+            if (habit.streakCount > 1){
                 streaksMaintained++;
             }
         }
@@ -122,12 +123,13 @@ export class HabitManager{
         };
     }
 
+    // Method for future updates.
     //Reset a habit manually; calls resetComplete(), resetStreakCount(), doesn't reset the date, because that only happens on completion
-    public resetHabit(name: string): void{
-        const habit = this.findHabit(name);
-        if (!habit) return;
+    // public resetHabit(name: string): void{
+    //     const habit = this.findHabit(name);
+    //     if (!habit) return;
 
-        habit.resetComplete;
-        habit.resetStreakCount;
-    }
+    //     habit.resetComplete();
+    //     habit.resetStreakCount();
+    // }
 }
