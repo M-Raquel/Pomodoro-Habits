@@ -5,7 +5,7 @@ This project is a command‑line Pomodoro and habit‑tracking program written i
 The application allows users to create habits, track daily completions, maintain streaks, and run Pomodoro timers that automatically update habit progress. I focused heavily on designing maintainable classes, enforcing clear boundaries between the layers, and writing code that was testable and easy to extend.
 This project helped me explore TypeScript’s strengths, including strong typing, encapsulation, ES module behavior, and practice structuring files in a professional way.
 
-[Typescript Software Demo](http://youtube.link.goes.here)
+[Typescript Software Demo](https://www.youtube.com/watch?v=TdoS89CTcSQ)
 
 # Development Environment
 
