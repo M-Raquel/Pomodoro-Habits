@@ -1,4 +1,4 @@
-import { Habit} from "../habits/Habit.js";
+import { Habit} from "../habits/Habit.ts";
 import * as fs from "fs";
 // Class that Reads/Writes to JSON files.
 
@@ -39,12 +39,12 @@ export class FileStorage{
             //Parse JSON into Habbit objects 
             //Validate and convert to Habit instances, function to map the objects
             return rawList.map((obj: any) => {
-                const habit = new Habit(obj.name)
+                const habit = new Habit(obj._name)
 
                 //restore fields using the setters in Habit.ts
-                habit.setDate( new Date(obj.date));
-                habit.setComplete(obj.complete);
-                habit.setStreakCount(obj.streakCount);
+                habit.setDate( new Date(obj._date));
+                habit.setComplete(obj._complete);
+                habit.setStreakCount(obj._streakCount);
 
                 return habit;
             });
