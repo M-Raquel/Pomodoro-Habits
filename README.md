@@ -18,7 +18,7 @@ Tools and Libraries:
 - readline module for CLI interaction
 - No external frameworks
 
-# How to Run
+## How to Run
 1. Clone the Repository
 git clone <your-repo-url>
 cd Pomodoro-Habits
@@ -26,12 +26,12 @@ cd Pomodoro-Habits
 2. Install independencies
 npm install
 
-# Option 1 - Run Directly with ts-node
+### Option 1 - Run Directly with ts-node
 Runs the TypeScript source without compiling
 * make sure to enable allowImportingTsExtensions in tsconfig.json
 npx ts-node src/index.ts
 
-# Option 2 - Compile TypeScript and Run the Output
+### Option 2 - Compile TypeScript and Run the Output
 - Compile: 
 npm run build
 
